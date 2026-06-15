@@ -19,6 +19,7 @@ import HipHopModes from './components/HipHopModes';
 import FestaJuninaModes from './components/FestaJuninaModes';
 import AfroModes from './components/AfroModes';
 import GauchaModes from './components/GauchaModes';
+import Aula from './components/Aula';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
           <Route path="/gaucha" element={<DancasGauchas />} />
           <Route path="/gaucha/modos" element={<GauchaModes />} />
           <Route path="/gaucha/levels/:modo" element={<GauchaLevels />} />
+          <Route path="/aula" element={<Aula />} />
           <Route path="/grupos" element={<Grupos />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/avatar" element={<AvatarPicker />} />

@@ -8,14 +8,13 @@ interface LevelsProps {
 
 export default function Levels({ titulo }: LevelsProps) {
   const navigate = useNavigate();
-  const { modulo, modo } = useParams();
+  const { modo } = useParams();
 
-  const levels = [
-    { id: 1, unlocked: true },
-    { id: 2, unlocked: false },
-    { id: 3, unlocked: false },
-    { id: 4, unlocked: false },
-  ];
+ const levels = [
+  { id: 'iniciante', nome: 'Iniciante', unlocked: true },
+  { id: 'intermediario', nome: 'Intermediário', unlocked: false },
+  { id: 'avancado', nome: 'Avançado', unlocked: false },
+];
 
   return (
     <section className="levels-container">
@@ -41,18 +40,11 @@ export default function Levels({ titulo }: LevelsProps) {
   key={level.id}
   className={`level-card ${!level.unlocked ? 'locked' : ''}`}
   disabled={!level.unlocked}
-  onClick={() => {
-    if (level.unlocked) {
-      navigate(
-        `/${modulo}/levels/${modo}/nivel-${level.id}`
-      );
-    }
-  }}
 >
             <span className="level-title">
-              {!level.unlocked && <Lock size={16} />}
-              Nível {level.id}
-            </span>
+  {!level.unlocked && <Lock size={16} />}
+  {level.nome}
+</span>
 
             <span className="level-status">
               {level.unlocked ? 'Disponível' : 'Bloqueado'}
