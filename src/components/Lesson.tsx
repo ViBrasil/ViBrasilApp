@@ -91,6 +91,25 @@ const aula =
         <button
   className="btn btn-outline"
   onClick={() => {
+    const progressKey = `vibrasil_completed_${modulo}_${modo}_${nivel}_${etapa}`;
+    localStorage.setItem(progressKey, 'true');
+
+    const notifications = JSON.parse(
+      localStorage.getItem('vibrasil_notifications') || '[]'
+    );
+
+    notifications.unshift({
+      title: 'Conquista desbloqueada',
+      message: `Você concluiu ${aula?.titulo || etapa} em ${nivel}.`,
+      type: 'achievement',
+      date: new Date().toISOString(),
+    });
+
+    localStorage.setItem(
+      'vibrasil_notifications',
+      JSON.stringify(notifications)
+    );
+
     setShowAchievement(true);
     setTimeout(() => setShowAchievement(false), 3500);
   }}

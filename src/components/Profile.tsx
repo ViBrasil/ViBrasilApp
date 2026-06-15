@@ -84,7 +84,7 @@ export default function Profile() {
       setFullName('Modo visitante');
       return;
     }
-    
+
     const fetchProfile = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) return;
@@ -96,9 +96,16 @@ export default function Profile() {
         .single();
 
       if (profile) {
-        if (profile.username) setUsername(profile.username);
-        if (profile.avatar_id) setAvatarId(profile.avatar_id);
-      }
+  const savedUsername = localStorage.getItem('vibrasil_username');
+
+  if (savedUsername) {
+    setUsername(savedUsername);
+  } else if (profile.username) {
+    setUsername(profile.username);
+  }
+
+  if (profile.avatar_id) setAvatarId(profile.avatar_id);
+}
 
       // Nome real vindo do metadata do auth (se existir)
       if (session.user.user_metadata?.full_name) {

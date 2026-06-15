@@ -1,8 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Trophy, Users, Bell } from 'lucide-react';
+import { ArrowLeft, Trophy, Bell } from 'lucide-react';
 
 export default function Notifications() {
   const navigate = useNavigate();
+
+  const notifications = JSON.parse(
+    localStorage.getItem('vibrasil_notifications') || '[]'
+  );
 
   return (
     <section className="levels-container">
@@ -17,20 +21,27 @@ export default function Notifications() {
       </header>
 
       <main className="levels-list">
-        <div className="level-card">
-          <span className="level-title"><Trophy size={18} /> Conquista desbloqueada</span>
-          <span className="level-status">Festeiro — continue praticando para ganhar novas conquistas.</span>
-        </div>
-
-        <div className="level-card">
-          <span className="level-title"><Users size={18} /> Grupos</span>
-          <span className="level-status">Entre em uma conta para criar grupos e acompanhar amigos.</span>
-        </div>
-
-        <div className="level-card">
-          <span className="level-title"><Bell size={18} /> Bem-vindo ao ViBrasil</span>
-          <span className="level-status">Aprenda danças brasileiras no seu ritmo.</span>
-        </div>
+        {notifications.length === 0 ? (
+          <div className="level-card">
+            <span className="level-title">
+              <Bell size={18} /> Nenhuma notificação ainda
+            </span>
+            <span className="level-status">
+              Conclua etapas para desbloquear conquistas.
+            </span>
+          </div>
+        ) : (
+          notifications.map((notification: any, index: number) => (
+            <div className="level-card" key={index}>
+              <span className="level-title">
+                <Trophy size={18} /> {notification.title}
+              </span>
+              <span className="level-status">
+                {notification.message}
+              </span>
+            </div>
+          ))
+        )}
       </main>
     </section>
   );
