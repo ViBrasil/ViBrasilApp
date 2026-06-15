@@ -40,6 +40,11 @@ export default function Levels({ titulo }: LevelsProps) {
   key={level.id}
   className={`level-card ${!level.unlocked ? 'locked' : ''}`}
   disabled={!level.unlocked}
+  onClick={() => {
+    if (level.unlocked) {
+      navigate(level.id);
+    }
+  }}
 >
             <span className="level-title">
   {!level.unlocked && <Lock size={16} />}

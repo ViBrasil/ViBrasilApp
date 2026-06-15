@@ -19,7 +19,8 @@ import HipHopModes from './components/HipHopModes';
 import FestaJuninaModes from './components/FestaJuninaModes';
 import AfroModes from './components/AfroModes';
 import GauchaModes from './components/GauchaModes';
-import Aula from './components/Aula';
+import LevelSteps from './components/LevelSteps';
+import Lesson from './components/Lesson';
 
 function App() {
   return (
@@ -32,18 +33,22 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/modulos" element={<Modulos />} />
           <Route path="/hip-hop" element={<HipHop />} />
-          <Route path="/hip-hop/modos" element={<HipHopModes />} />
-          <Route path="/hip-hop/levels/:modo" element={<HipHopLevels />} />
+            <Route path="/hip-hop/modos" element={<HipHopModes />} />
+              <Route path="/hip-hop/levels/:modo" element={<HipHopLevels />} />
+                <Route path="/hip-hop/levels/:modo/:nivel" element={<LevelSteps />} />       
           <Route path="/festa-junina" element={<FestaJunina />} />
-          <Route path="/festa-junina/modos" element={<FestaJuninaModes />} />
-          <Route path="/festa-junina/levels/:modo" element={<FestaJuninaLevels />} />
+            <Route path="/festa-junina/modos" element={<FestaJuninaModes />} />
+              <Route path="/festa-junina/levels/:modo" element={<FestaJuninaLevels />} />
+                <Route path="/festa-junina/levels/:modo/:nivel" element={<LevelSteps />} />
           <Route path="/afro" element={<AfroBrasileiras />} />
-          <Route path="/afro/modos" element={<AfroModes />} />
-          <Route path="/afro/levels/:modo" element={<AfroLevels />} />
+            <Route path="/afro/modos" element={<AfroModes />} />
+              <Route path="/afro/levels/:modo" element={<AfroLevels />} />
+                <Route path="/afro/levels/:modo/:nivel" element={<LevelSteps />} />
           <Route path="/gaucha" element={<DancasGauchas />} />
-          <Route path="/gaucha/modos" element={<GauchaModes />} />
-          <Route path="/gaucha/levels/:modo" element={<GauchaLevels />} />
-          <Route path="/aula" element={<Aula />} />
+            <Route path="/gaucha/modos" element={<GauchaModes />} />
+              <Route path="/gaucha/levels/:modo" element={<GauchaLevels />} />
+                <Route path="/gaucha/levels/:modo/:nivel" element={<LevelSteps />} />
+          <Route path="/:modulo/levels/:modo/:nivel/:etapa" element={<Lesson />} />
           <Route path="/grupos" element={<Grupos />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/avatar" element={<AvatarPicker />} />
