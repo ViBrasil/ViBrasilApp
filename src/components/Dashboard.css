@@ -131,37 +131,53 @@
 }
 
 .recommended-card {
-  height: 200px;
-  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-  border-radius: var(--radius-lg);
   position: relative;
   overflow: hidden;
-  cursor: pointer;
-  box-shadow: var(--shadow-md);
-  /* The characters will be just background for now */
-  display: flex;
-  align-items: flex-end;
-  padding: 20px;
+  border-radius: var(--radius-lg);
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.recommended-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .card-info {
-  position: relative;
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 18px;
   z-index: 2;
+  color: white;
 }
 
 .card-info h3 {
-  color: #fff;
   font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 18px;
-  margin-bottom: 4px;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0 0 4px;
 }
 
 .card-info p {
-  color: #fff;
-  font-size: 12px;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.recommended-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.72),
+    rgba(0, 0, 0, 0.28),
+    rgba(0, 0, 0, 0)
+  );
+  z-index: 1;
 }
 
 .progress-list {
@@ -274,4 +290,59 @@
   color: #ddd;
   font-size: 12px;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+.dashboard-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.progress-item {
+  cursor: pointer;
+}
+
+.progress-percent {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 4px;
+  display: block;
+}
+
+.progress-item {
+  position: relative;
+  overflow: hidden;
+  min-height: 120px;
+  cursor: pointer;
+}
+
+.progress-module-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.progress-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.68),
+    rgba(0, 0, 0, 0.18)
+  );
+}
+
+.progress-info {
+  position: relative;
+  z-index: 2;
+}
+
+.progress-name,
+.progress-percent {
+  color: #fff;
 }

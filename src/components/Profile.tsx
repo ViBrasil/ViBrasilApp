@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { ArrowLeft, Settings as SettingsIcon } from 'lucide-react';
 import './Profile.css';
@@ -22,7 +22,7 @@ import imgCuia from '../assets/images/conquistas/CUIA.png';
 import imgFogueira from '../assets/images/conquistas/FOGUEIRA.png';
 
 // Importando imagens de módulos (para a aba "Módulos" do perfil)
-import imgGaucha from '../assets/images/módulos/DANÇA GAUCHA.png';
+import imgFestaJunina from '../assets/images/módulos/FESTA JUNINA.png';
 import imgHipHop from '../assets/images/módulos/DANÇA HIP HOP.png';
 
 /**
@@ -70,7 +70,10 @@ const conquistas: ConquistaInfo[] = [
 
 export default function Profile() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<TabId>('modulos');
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState<TabId>(
+  location.state?.tab || 'modulos'
+);
   const [avatarId, setAvatarId] = useState('01');
   const [username, setUsername] = useState(localStorage.getItem('vibrasil_username') || 'Convidado');
   const [fullName, setFullName] = useState('');
@@ -121,6 +124,48 @@ export default function Profile() {
     { id: 'modulos', label: 'Módulos' },
     { id: 'conquistas', label: 'Conquistas' },
   ];
+
+const calcularProgressoModulo = (modulo: string) => {
+  const modosPorModulo: Record<string, string[]> = {
+    'festa-junina': ['dama', 'cavalheiro', 'dupla'],
+    'hip-hop': ['solo', 'dupla'],
+    'afro': ['solo', 'dupla'],
+    'gaucha': ['dama', 'cavalheiro', 'dupla'],
+  };
+
+  const niveis = ['iniciante', 'intermediario', 'avancado'];
+  const etapas = [
+    'passo-1',
+    'passo-2',
+    'passo-3',
+    'passo-4',
+    'passo-5',
+    'passo-6',
+    'passo-7',
+  ];
+
+  let total = 0;
+  let concluidas = 0;
+
+  modosPorModulo[modulo].forEach((modo) => {
+    niveis.forEach((nivel) => {
+      etapas.forEach((etapa) => {
+        total++;
+
+        const key = `vibrasil_completed_${modulo}_${modo}_${nivel}_${etapa}`;
+
+        if (localStorage.getItem(key) === 'true') {
+          concluidas++;
+        }
+      });
+    });
+  });
+
+  return Math.round((concluidas / total) * 100);
+};
+
+const progressoFestaJunina = calcularProgressoModulo('festa-junina');
+const progressoHipHop = calcularProgressoModulo('hip-hop');
 
   return (
     <section className="profile-container" aria-labelledby="profile-username">
@@ -190,24 +235,44 @@ export default function Profile() {
         {/* Aba Módulos */}
         {activeTab === 'modulos' && (
           <div role="tabpanel" aria-label="Progresso nos módulos" className="tab-panel-modulos">
-            <div className="profile-modulo-card">
-              <img src={imgGaucha} alt="Dança Gaúcha" className="profile-modulo-img" />
-              <div className="profile-modulo-overlay">
-                <span className="profile-modulo-name">Gaúcha</span>
-                <div className="progress-bar-container">
-                  <div className="progress-bar-fill" style={{ width: '60%' }}></div>
-                </div>
-              </div>
-            </div>
-            <div className="profile-modulo-card">
-              <img src={imgHipHop} alt="Hip Hop" className="profile-modulo-img" />
-              <div className="profile-modulo-overlay">
-                <span className="profile-modulo-name">Hip Hop</span>
-                <div className="progress-bar-container">
-                  <div className="progress-bar-fill" style={{ width: '30%' }}></div>
-                </div>
-              </div>
-            </div>
+            <div
+  className="profile-modulo-card"
+  onClick={() => navigate('/festa-junina')}
+  role="button"
+  tabIndex={0}
+>
+  <img src={imgFestaJunina} alt="Festa Junina" className="profile-modulo-img" />
+  <div className="profile-modulo-overlay">
+    <span className="profile-modulo-name">
+      Festa Junina • {progressoFestaJunina}%
+    </span>
+    <div className="progress-bar-container">
+      <div
+        className="progress-bar-fill"
+        style={{ width: `${progressoFestaJunina}%` }}
+      ></div>
+    </div>
+  </div>
+</div>
+            <div
+  className="profile-modulo-card"
+  onClick={() => navigate('/hip-hop')}
+  role="button"
+  tabIndex={0}
+>
+  <img src={imgHipHop} alt="Hip Hop" className="profile-modulo-img" />
+  <div className="profile-modulo-overlay">
+    <span className="profile-modulo-name">
+      Hip Hop • {progressoHipHop}%
+    </span>
+    <div className="progress-bar-container">
+      <div
+        className="progress-bar-fill"
+        style={{ width: `${progressoHipHop}%` }}
+      ></div>
+    </div>
+  </div>
+</div>
           </div>
         )}
 
@@ -215,7 +280,10 @@ export default function Profile() {
         {activeTab === 'conquistas' && (
           <div role="tabpanel" aria-label="Suas conquistas" className="tab-panel-conquistas">
             {conquistas.map((c, i) => (
-              <div key={i} className="conquista-row">
+              <div
+  key={i}
+  className={`conquista-row ${i > 0 ? 'locked' : ''}`}
+>
                 <img src={c.img} alt={c.alt} className="conquista-thumb" loading="lazy" />
                 <div className="conquista-text">
                   <h3>{c.title}</h3>

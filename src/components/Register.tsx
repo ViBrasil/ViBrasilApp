@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import './Auth.css';
+import imgRegister from '../assets/images/interface/REGISTER.png';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -47,7 +48,11 @@ export default function Register() {
     <section className="screen-container auth-screen" aria-labelledby="register-title">
       <div className="auth-illustration">
         {/* Placeholder for the blue balancing character */}
-        <div className="character-placeholder blue-character" aria-hidden="true"></div>
+        <img
+  src={imgRegister}
+  alt=""
+  className="auth-character"
+/>
       </div>
       
       <div className="auth-form-container">

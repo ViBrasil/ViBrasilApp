@@ -75,3 +75,9 @@
   font-size: 14px;
   text-align: center;
 }
+
+.auth-character{
+  width: 220px;
+  max-width: 80%;
+  object-fit: contain;
+}

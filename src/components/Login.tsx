@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import './Auth.css';
+import imgLogin from '../assets/images/interface/LOGIN.png';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -48,7 +49,11 @@ localStorage.setItem('vibrasil_username', loggedUsername);
     <section className="screen-container auth-screen" aria-labelledby="login-title">
       <div className="auth-illustration">
         {/* Placeholder for the red running character */}
-        <div className="character-placeholder red-character" aria-hidden="true"></div>
+        <img
+  src={imgLogin}
+  alt=""
+  className="auth-character"
+/>
       </div>
       
       <div className="auth-form-container">

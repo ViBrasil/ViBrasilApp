@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import './Splash.css';
 import { supabase } from '../lib/supabase';
+import imgSplash from '../assets/images/interface/SPLASH.png';
 
 export default function Splash() {
   const navigate = useNavigate();
@@ -8,10 +9,13 @@ export default function Splash() {
   return (
     <section className="screen-container splash-screen" aria-labelledby="splash-title">
       <div className="splash-content">
-        <div className="logo-container" aria-hidden="true">
-          {/* Logo visual gerada via CSS ou Imagem */}
-          <h1 className="logo-text">ViBrasil</h1>
-        </div>
+        <div className="logo-container">
+  <img
+    src={imgSplash}
+    alt="ViBrasil"
+    className="splash-img"
+  />
+</div>
         
         <div className="welcome-text">
           <h2 id="splash-title">Olá!</h2>
