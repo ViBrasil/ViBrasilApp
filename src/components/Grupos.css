@@ -195,3 +195,21 @@
   margin-top: 8px;
   font-size: 13px;
 }
+
+.grupos-intro {
+  text-align: center;
+  max-width: 320px;
+}
+
+.grupos-intro h2 {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  color: var(--primary-color);
+  margin-bottom: 8px;
+}
+
+.grupos-intro p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}

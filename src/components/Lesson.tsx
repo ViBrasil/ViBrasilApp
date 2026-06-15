@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { aulas } from '../data/aulas';
@@ -9,6 +10,8 @@ export default function Lesson() {
 
   const aulasData = aulas as Record<string, any>;
 
+  const [showAchievement, setShowAchievement] = useState(false);
+
 const aula =
   modulo && modo && nivel && etapa
     ? aulasData[modulo]?.[modo]?.[nivel]?.[etapa]
@@ -18,6 +21,15 @@ const aula =
 
   return (
     <section className="levels-container">
+      {showAchievement && (
+  <button
+    className="achievement-toast"
+    onClick={() => navigate('/notifications')}
+  >
+    <strong>🏆 Conquista desbloqueada!</strong>
+    <span>Nova etapa concluída</span>
+  </button>
+)}
       <header className="modulos-header">
         <button
           className="icon-btn"
@@ -76,9 +88,15 @@ const aula =
           </div>
         )}
 
-        <button className="btn btn-outline">
-          ✓ Concluir etapa
-        </button>
+        <button
+  className="btn btn-outline"
+  onClick={() => {
+    setShowAchievement(true);
+    setTimeout(() => setShowAchievement(false), 3500);
+  }}
+>
+  ✓ Concluir etapa
+</button>
       </main>
     </section>
   );

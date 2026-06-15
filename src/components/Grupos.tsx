@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
-import { Bell, Menu } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import './Grupos.css';
 
 /**
@@ -24,12 +24,12 @@ type ModalType = null | 'create' | 'join';
 
 export default function Grupos() {
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeModal, setActiveModal] = useState<ModalType>(null);
   const [joinCode, setJoinCode] = useState('');
   const [createdCode, setCreatedCode] = useState('');
   const [feedback, setFeedback] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const isGuest = localStorage.getItem('vibrasil_guest') === 'true';
 
   /**
    * Gera um código aleatório de 6 caracteres (letras maiúsculas + números).
@@ -113,34 +113,72 @@ export default function Grupos() {
     }
   };
 
+  if (isGuest) {
+  return (
+    <section className="grupos-container">
+      <header className="modulos-header">
+        <button
+          className="icon-btn"
+          onClick={() => navigate('/dashboard')}
+          aria-label="Voltar"
+        >
+          <ArrowLeft size={24} color="#333" />
+        </button>
+
+        <h1 className="modulos-title">Grupos</h1>
+
+        <div style={{ width: 24 }} />
+      </header>
+
+      <main className="grupos-content">
+        <div className="grupos-icon-wrapper">
+          {/* seu SVG atual */}
+        </div>
+
+        <div className="grupos-intro">
+          <h2>Faça login para usar grupos</h2>
+
+          <p>
+            Crie ou participe de grupos para aprender com seus amigos e acompanhar o progresso em conjunto.
+          </p>
+        </div>
+
+        <button
+          className="btn btn-primary"
+          onClick={() => navigate('/login')}
+        >
+          Entrar
+        </button>
+
+        <button
+          className="btn btn-outline"
+          onClick={() => navigate('/register')}
+        >
+          Criar conta
+        </button>
+      </main>
+    </section>
+  );
+}
+
   return (
     <section className="grupos-container" aria-labelledby="grupos-title">
       {/* Header reutiliza o mesmo estilo do Dashboard */}
-      <header className="dash-header">
-        <div className="user-profile">
-          <div className="avatar-placeholder" aria-hidden="true"></div>
-          <span className="username">mestredofrevo352</span>
-        </div>
-        <div className="header-actions" style={{ position: 'relative' }}>
-          <button className="icon-btn" aria-label="Notificações">
-            <Bell size={24} color="#c41e1e" />
-          </button>
-          <button
-            className="icon-btn"
-            aria-label="Menu principal"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-expanded={isMenuOpen}
-          >
-            <Menu size={24} color="#c41e1e" />
-          </button>
-          {isMenuOpen && (
-            <div className="hamburger-dropdown">
-              <button onClick={() => navigate('/modulos')}>Módulos</button>
-              <button onClick={() => navigate('/grupos')}>Grupos</button>
-            </div>
-          )}
-        </div>
-      </header>
+      <header className="modulos-header">
+  <button
+    className="icon-btn"
+    onClick={() => navigate('/dashboard')}
+    aria-label="Voltar para o dashboard"
+  >
+    <ArrowLeft size={24} color="#333" />
+  </button>
+
+  <h1 id="grupos-title" className="modulos-title">
+    Grupos
+  </h1>
+
+  <div style={{ width: 24 }} aria-hidden="true"></div>
+</header>
 
       <main className="grupos-content">
         {/* Ícone central de grupo (SVG inline inspirado no design) */}
@@ -156,6 +194,12 @@ export default function Grupos() {
             <circle cx="150" cy="85" r="14" stroke="#c41e1e" strokeWidth="5" fill="none" />
             <path d="M150 99 C150 99 128 115 136 140 Q144 155 150 148 Q156 155 164 140 C172 115 150 99 150 99Z" stroke="#c41e1e" strokeWidth="5" fill="none" strokeLinejoin="round" />
           </svg>
+          <div className="grupos-intro">
+  <h2>Dance junto</h2>
+  <p>
+    Crie ou entre em um grupo para acompanhar o progresso dos seus amigos.
+  </p>
+</div>
         </div>
 
         {/* Feedback messages */}

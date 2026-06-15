@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './Splash.css';
+import { supabase } from '../lib/supabase';
 
 export default function Splash() {
   const navigate = useNavigate();
@@ -33,13 +34,22 @@ export default function Splash() {
         >
           Criar conta
         </button>
-        <button 
-          className="btn btn-ghost" 
-          onClick={() => navigate('/dashboard')}
-          aria-label="Continuar para o aplicativo sem fazer login"
-        >
-          Continuar sem login
-        </button>
+        <button
+  className="btn btn-ghost"
+  onClick={async () => {
+
+  await supabase.auth.signOut();
+
+  localStorage.setItem('vibrasil_guest', 'true');
+  localStorage.setItem('vibrasil_username', 'Convidado');
+
+  navigate('/dashboard');
+
+}}
+  aria-label="Continuar para o aplicativo sem fazer login"
+>
+  Continuar sem login
+</button>
       </div>
     </section>
   );

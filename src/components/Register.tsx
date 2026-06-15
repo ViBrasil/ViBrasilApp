@@ -32,6 +32,8 @@ export default function Register() {
       // Assuming we want to login automatically or go to dashboard
       // Note: If email confirmation is required, this might not log them in immediately.
       if (data.session) {
+        localStorage.removeItem('vibrasil_guest');
+        localStorage.setItem('vibrasil_username', username);
         navigate('/dashboard');
       } else {
         setError('Cadastro realizado! Verifique seu email ou tente fazer login.');

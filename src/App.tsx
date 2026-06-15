@@ -21,6 +21,8 @@ import AfroModes from './components/AfroModes';
 import GauchaModes from './components/GauchaModes';
 import LevelSteps from './components/LevelSteps';
 import Lesson from './components/Lesson';
+import Settings from './components/Settings';
+import Notifications from './components/Notifications';
 
 function App() {
   return (
@@ -52,6 +54,8 @@ function App() {
           <Route path="/grupos" element={<Grupos />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/avatar" element={<AvatarPicker />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/notifications" element={<Notifications />} />
         </Routes>
       </main>
     </Router>

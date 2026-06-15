@@ -42,7 +42,7 @@ export default function Modulos() {
       <header className="modulos-header">
         <button
           className="icon-btn"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/dashboard')}
           aria-label="Voltar para a tela anterior"
         >
           <ArrowLeft size={24} color="#333" />

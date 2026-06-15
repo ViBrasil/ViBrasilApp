@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
-import { ArrowLeft, Settings } from 'lucide-react';
+import { ArrowLeft, Settings as SettingsIcon } from 'lucide-react';
 import './Profile.css';
 
 // Importando avatares
@@ -72,10 +72,19 @@ export default function Profile() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabId>('modulos');
   const [avatarId, setAvatarId] = useState('01');
-  const [username, setUsername] = useState('mestredofrevo352');
-  const [fullName, setFullName] = useState('João da Silva');
+  const [username, setUsername] = useState(localStorage.getItem('vibrasil_username') || 'Convidado');
+  const [fullName, setFullName] = useState('');
 
   useEffect(() => {
+    const isGuest = localStorage.getItem('vibrasil_guest') === 'true';
+    
+    if (isGuest) {
+      setUsername(localStorage.getItem('vibrasil_username') || 'Convidado');
+      setAvatarId(localStorage.getItem('vibrasil_avatar_id') || '01');
+      setFullName('Modo visitante');
+      return;
+    }
+    
     const fetchProfile = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) return;
@@ -113,13 +122,16 @@ export default function Profile() {
         <div className="profile-header-actions">
           <button
             className="icon-btn"
-            onClick={() => navigate(-1)}
+            onClick={() => navigate('/dashboard')}
             aria-label="Voltar para a tela anterior"
           >
             <ArrowLeft size={22} color="#fff" />
           </button>
-          <button className="icon-btn" aria-label="Configurações">
-            <Settings size={22} color="#fff" />
+          <button
+            className="icon-btn"
+            aria-label="Configurações"
+            onClick={() => navigate('/settings')}>
+          <SettingsIcon size={22} color="#fff" />
           </button>
         </div>
 

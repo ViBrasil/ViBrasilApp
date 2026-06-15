@@ -17,6 +17,15 @@ export default function Dashboard() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
+    const isGuest = localStorage.getItem('vibrasil_guest') === 'true';
+
+if (isGuest) {
+  setUsername(
+    localStorage.getItem('vibrasil_username') || 'Convidado'
+  );
+
+  return;
+}
     const fetchUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session?.user?.user_metadata?.username) {
@@ -42,7 +51,11 @@ export default function Dashboard() {
           <span className="username">{username}</span>
         </div>
         <div className="header-actions" style={{position: 'relative'}}>
-          <button className="icon-btn" aria-label="Notificações">
+          <button
+  className="icon-btn"
+  aria-label="Notificações"
+  onClick={() => navigate('/notifications')}
+>
             <Bell size={24} color="#c41e1e" />
           </button>
           <button 

@@ -46,6 +46,12 @@ export default function AvatarPicker() {
   useEffect(() => {
     // Busca o avatar atual do usuário para marcar como selecionado
     const fetchCurrentAvatar = async () => {
+      const isGuest = localStorage.getItem('vibrasil_guest') === 'true';
+      if (isGuest) {
+        setSelectedId(localStorage.getItem('vibrasil_avatar_id') || '01'); 
+        return;
+      }
+
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) return;
 
@@ -65,6 +71,14 @@ export default function AvatarPicker() {
   const handleSelect = async (avatarId: string) => {
     setSelectedId(avatarId);
     setIsSaving(true);
+
+    const isGuest = localStorage.getItem('vibrasil_guest') === 'true';
+    
+    if (isGuest) {
+      localStorage.setItem('vibrasil_avatar_id', avatarId);
+      setTimeout(() => navigate('/profile'), 400);
+      return;
+    }
 
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -88,7 +102,7 @@ export default function AvatarPicker() {
       <header className="avatar-picker-header">
         <button
           className="icon-btn"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/profile')}
           aria-label="Voltar para o perfil"
         >
           <ArrowLeft size={24} color="#333" />

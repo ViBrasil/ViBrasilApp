@@ -32,6 +32,13 @@ export default function Login() {
     if (error) {
       setError(error.message);
     } else {
+      const { data: { session } } = await supabase.auth.getSession();
+
+const loggedUsername =
+  session?.user?.user_metadata?.username || email;
+
+localStorage.removeItem('vibrasil_guest');
+localStorage.setItem('vibrasil_username', loggedUsername);
       navigate('/dashboard');
     }
     setLoading(false);
