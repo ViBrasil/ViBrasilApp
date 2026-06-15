@@ -1,0 +1,27 @@
+.modulo-detalhe-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg-white);
+}
+
+.modulo-detalhe-content {
+  padding: 8px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.modulo-detalhe-img {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  display: block;
+}
+
+.modulo-detalhe-texto {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-dark);
+  text-align: justify;
+}

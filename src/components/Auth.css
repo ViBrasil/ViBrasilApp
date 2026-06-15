@@ -1,0 +1,77 @@
+.auth-screen {
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 40px;
+}
+
+.auth-illustration {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+  min-height: 200px;
+}
+
+.character-placeholder {
+  width: 200px;
+  height: 250px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Fallback simple shapes */
+.red-character {
+  background-color: var(--primary-color);
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+}
+
+.blue-character {
+  background-color: #2b5c8f;
+  border-radius: 50% 50% 20% 20%;
+}
+
+.auth-form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-title {
+  font-size: 22px;
+  color: var(--primary-color);
+  text-align: center;
+  line-height: 1.2;
+  margin-bottom: 32px;
+}
+
+.auth-btn {
+  margin-top: 16px;
+  width: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+.back-btn {
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--text-dark);
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+}
+
+.error-message {
+  color: var(--primary-color);
+  background-color: #ffebee;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  width: 100%;
+  font-size: 14px;
+  text-align: center;
+}

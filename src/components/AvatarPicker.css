@@ -1,0 +1,98 @@
+.avatar-picker-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: var(--bg-white);
+  min-height: 100vh;
+}
+
+.avatar-picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+}
+
+.avatar-picker-title {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.avatar-picker-content {
+  padding: 8px 24px 32px;
+  flex: 1;
+}
+
+.avatar-picker-instruction {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+/* Grid de avatares — 3 colunas conforme design */
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.avatar-option {
+  position: relative;
+  aspect-ratio: 1;
+  border: none;
+  border-radius: var(--radius-md);
+  background-color: #f3f3f3;
+  padding: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, outline 0.15s ease;
+}
+
+.avatar-option:hover {
+  transform: scale(1.04);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-option:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.avatar-option.selected {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+  background-color: #fef2f2;
+}
+
+.avatar-option:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.avatar-option-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Checkmark overlay */
+.avatar-check {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
